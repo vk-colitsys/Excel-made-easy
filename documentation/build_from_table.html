@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>magicExcel Documentation</title>
+    <link rel="stylesheet" type="text/css" href="documentation.css" />
+  </head>
+  <body>
+    <h1>magicExcel Documentation</h1>
+
+    <h2>build_from_table</h2>
+    <p>This tag will parse through an HTML table or set of tables to generate an Excel document</p>
+
+    <h3>Syntax</h3>
+<pre class="syntax">
+  &lt;cfimport taglib="/path/to/magicExcel" prefix="magicExcel"&gt;
+
+  &lt;magicExcel:build_from_table
+    file="/path/to/excel/document.xls"
+  &gt;
+    <em>HTML Table(s)</em>
+  &lt;/magicExcel:build_from_table&gt;
+</pre>
+
+    <h3>Tag Options</h3>
+    <table class="doctable" cellpadding="5px" cellspacing="0px" width="100%">
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Req/Opt</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><!-- auto_freeze_headers -->
+          <td>
+            <p class="attribute">auto_freeze_headers</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>false</p>
+          </td>
+          <td>
+            <p>Automatically determine the first data cell and create freeze panes accordingly.</p>
+            <p>If true, this will override <span class="attribute">freeze_at</span>.</p>
+          </td>
+        </tr>
+        <tr><!-- column_widths -->
+          <td>
+            <p class="attribute">column_widths</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>auto</p>
+          </td>
+          <td>
+            <p>Must be an integer between 1 and 255.</p>
+            <p>By default, the tag automatically determines column widths based on spreadsheet contents.</p>
+            <p>You may use a comma-separated list of values (in points) to explicitly override the automatic column widths.</p>
+            <p>For example, with a 5 column worksheet:</p>
+            <ul>
+              <li>10,20,30 (overrides the first three columns)</li>
+              <li>10,auto,30,40 (overrides the first, third and fourth column)</li>
+              <li>10,,30,,50 (overrides first, third and fifth column)</li>
+            </ul>
+            <p>You may use the keyword 'auto' in your width list, or you may use a blank value to set the width automatically.</p>
+          </td>
+        </tr>
+        <tr><!-- custom_theme -->
+          <td>
+            <p class="attribute">custom_theme</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>&nbsp;</p>
+          </td>
+          <td>
+            <p>Using a custom theme definition will override the <span class="attribute">theme</span> option.</p>
+            <p>To create your own theme definition, you will need to create a struct in the following format (items in bold are required):</p>
+            <pre class="syntax">
+  custom_theme = {
+    name = "spooky_theme_1",
+    <strong>definition</strong> = {
+      <strong>heading</strong> = {
+        bold = "true",
+        color = "orange",
+        fgcolor = "black",
+        fillpattern = "solid_foreground"
+      },
+      <strong>data</strong> = {
+        color = "dark_orange",
+        fillpattern = "nofill"
+      }
+    }
+  }
+            </pre>
+            <p>For theme definition options, please refer to the ColdFusion 9 documentation for <a href="http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/WSc3ff6d0ea77859461172e0811cbec22c24-6747.html" target="_blank">SpreadsheetFormatCell()</a>.</p>
+          </td>
+        </tr>
+        <tr><!-- file -->
+          <td>
+            <p class="attribute">file</p>
+          </td>
+          <td>
+            <p>Required</p>
+          </td>
+          <td>
+            <p>&nbsp;</p>
+          </td>
+          <td>
+            <p>Expanded path to the file you wish to generate.</p>
+          </td>
+        </tr>
+        <tr><!-- freeze_at -->
+          <td>
+            <p class="attribute">freeze_at</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>1,1</p>
+          </td>
+          <td>
+            <p>Explicitly set where to create freeze panes. [row, column]</p>
+          </td>
+        </tr>
+        <tr><!-- theme_column_header -->
+          <td>
+            <p class="attribute">theme_column_header</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>false</p>
+          </td>
+          <td>
+            <p>If you choose to use a &lt;thead&gt; section in your tables, you may theme those rows with the heading formatting.</p>
+          </td>
+        </tr>
+        <tr><!-- theme_data_cells -->
+          <td>
+            <p class="attribute">theme_data_cells</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>false</p>
+          </td>
+          <td>
+            <p>
+              <strong><span style="color: red;">WARNING!</span> Use at your own discretion.</strong> <br />
+              This may be a performance hog if used on a very large spreadsheet and has the potential to cause a memory leak and crash your CFML interpreter.
+            </p>
+          </td>
+        </tr>
+        <tr><!-- theme_footer -->
+          <td>
+            <p class="attribute">theme_footer</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>false</p>
+          </td>
+          <td>
+            <p>If you choose to use a &lt;tfoot&gt; section in your tables, you may theme those rows with the heading formatting.</p>
+          </td>
+        </tr>
+        <tr><!-- theme_row_header -->
+          <td>
+            <p class="attribute">theme_row_header</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>false</p>
+          </td>
+          <td>
+            <p>If you choose to use &lt;th&gt; elements in the rows of the &lt;tbody&gt; section, you may theme those cells with the data formatting.</p>
+          </td>
+        </tr>
+        <tr><!-- theme -->
+          <td>
+            <p class="attribute">theme</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>black_on_white</p>
+          </td>
+          <td>
+            <p>Use a built-in, colored theme to your excel document.</p>
+            <ul class="attribute">
+              <li>blueberry</li>
+              <li>lemon</li>
+              <li>strawberry</li>
+              <li>cherry</li>
+              <li>lime</li>
+              <li>orange</li>
+              <li>licorice</li>
+              <li>white_on_black</li>
+              <li>black_on_white</li>
+            </ul>
+          </td>
+        </tr>
+        <tr><!-- variable -->
+          <td>
+            <p class="attribute">variable</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>htmltables</p>
+          </td>
+          <td>
+            <p>This tag acts like a cfsavecontent in that you can generate the html within the open/close tags and reference the html later in the template.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>On-the-fly HTML Table Formatting</h3>
+    <p>The HTML tables may be themed and styled on the fly using CF Theme options within CSS comments.</p>
+    <p>For theme definition options, please refer to the ColdFusion 9 documentation for <a href="http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/WSc3ff6d0ea77859461172e0811cbec22c24-6747.html" target="_blank">SpreadsheetFormatCell()</a>.</p>
+
+    <h4>Column Formatting</h4>
+    <p>Formatting applied in a column heading will be applied to all cells within that column.</p>
+<pre class="syntax">
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style="/* dataFormat: (000) 000-0000; */"&gt;Phone Number&lt;/th&gt;
+      &lt;th style="/* dataFormat: ($#,##0.00_[Red]($#,##0.00); */"&gt;Currency&lt;/th&gt;
+      &lt;th style="/* dataFormat: h:mm:ss; */"&gt;Time&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+</pre>
+
+
+    <h4>Row Formatting</h4>
+    <p>Formatting applied to a &lt;tr&gt; is applied to a single row in the spreadsheet.</p>
+<pre class="syntax">
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Normal&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style="/* fgcolor: yellow; fillpattern: solid_foreground; */"&gt;
+      &lt;td&gt;Important&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+</pre>
+
+
+    <h4>Cell Formatting</h4>
+    <p>In addition to the above formatting, you may also format specific cells using the same technique.</p>
+    <p><strong>PLEASE NOTE:</strong> I highly advise against formatting the entire table using cell formatting. This will slow down Excel document generation immensely.</p>
+    <p>Do not use cell formatting unless you have a very specific need for it.</p>
+
+  </body>
+</html>

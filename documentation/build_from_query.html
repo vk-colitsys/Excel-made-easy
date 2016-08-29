@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>magicExcel Documentation</title>
+    <link rel="stylesheet" type="text/css" href="documentation.css" />
+  </head>
+  <body>
+    <h1>magicExcel Documentation</h1>
+    
+    <h2>build_from_query</h2>
+    <p>This tag will parse a ColdFusion query result to generate an Excel document</p>
+    
+    <h3>Syntax</h3>
+<pre class="syntax">
+  &lt;cfimport taglib="/path/to/magicExcel" prefix="magicExcel"&gt;
+  
+  &lt;magicExcel:build_from_query
+    query="query_name"
+    file="/path/to/excel/document.xls"
+  /&gt;
+</pre>
+  
+    <h3>Tag Options</h3>
+    <table class="doctable" cellpadding="5px" cellspacing="0px" width="100%">
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Req/Opt</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><!-- custom_theme -->
+          <td>
+            <p class="attribute">custom_theme</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>&nbsp;</p>
+          </td>
+          <td>
+            <p>Using a custom theme definition will override the <span class="attribute">theme</span> option.</p>
+            <p>To create your own theme definition, you will need to create a struct in the following format (items in bold are required):</p>
+            <pre class="syntax">
+  custom_theme = {
+    name = "spooky_theme_1",
+    <strong>definition</strong> = {
+      <strong>heading</strong> = {
+        bold = "true",
+        color = "orange",
+        fgcolor = "black",
+        fillpattern = "solid_foreground"
+      },
+      <strong>data</strong> = {
+        color = "dark_orange",
+        fillpattern = "nofill"
+      }
+    }
+  }
+            </pre>
+            <p>For theme definition options, please refer to the ColdFusion 9 documentation for <a href="http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/WSc3ff6d0ea77859461172e0811cbec22c24-6747.html" target="_blank">SpreadsheetFormatCell()</a>.</p>
+          </td>
+        </tr>
+        <tr><!-- file -->
+          <td>
+            <p class="attribute">file</p>
+          </td>
+          <td>
+            <p>Required</p>
+          </td>
+          <td>
+            <p>&nbsp;</p>
+          </td>
+          <td>
+            <p>Expanded path to the file you wish to generate.</p>
+          </td>
+        </tr>
+        <tr><!-- query -->
+          <td>
+            <p class="attribute">query</p>
+          </td>
+          <td>
+            <p>Required</p>
+          </td>
+          <td>
+            <p>&nbsp;</p>
+          </td>
+          <td>
+            <p>Name of <span class="attribute">cfquery</span> from which to draw data for spreadsheet population.</p>
+          </td>
+        </tr>
+        <tr><!-- theme -->
+          <td>
+            <p class="attribute">theme</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>black_on_white</p>
+          </td>
+          <td>
+            <p>Use a built-in, colored theme to your excel document.</p>
+            <ul class="attribute">
+              <li>blueberry</li>
+              <li>lemon</li>
+              <li>strawberry</li>
+              <li>cherry</li>
+              <li>lime</li>
+              <li>orange</li>
+              <li>licorice</li>
+              <li>white_on_black</li>
+              <li>black_on_white</li>
+            </ul>
+          </td>
+        </tr>
+        <tr><!-- variable -->
+          <td>
+            <p class="attribute">variable</p>
+          </td>
+          <td>
+            <p>Optional</p>
+          </td>
+          <td>
+            <p>build_from_query_result</p>
+          </td>
+          <td>
+            <p>Since there is no browser output, this variable will be set to determine if the file was generated.</p>
+            <p>Possible values returned are:</p>
+            <ul>
+                <li>OK</li>
+                <li>FAIL</li>
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </body>
+</html>

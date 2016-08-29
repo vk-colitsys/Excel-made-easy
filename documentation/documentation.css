@@ -1,0 +1,99 @@
+/* ========== ID DEFINITIONS ================================================ */
+
+
+
+/* ========== SPECIFIC CLASS DEFINITIONS ==================================== */
+
+/* ---------- DOCTABLE ------------------------------------------------------ */
+.doctable {
+  border-color: #999;
+  border-style: solid;
+  border-width: 1px 0px 0px 1px;
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: left;
+}
+
+.doctable caption {
+  text-align: left;
+  color: #66f;
+  font-weight: bold;
+}
+
+.doctable thead tr th,
+.doctable tbody tr td,
+.doctable tfoot tr th {
+  border-color: #999;
+  border-style: solid;
+  border-width: 0px 1px 1px 0px;
+  vertical-align: top;
+}
+
+/*  ---------- THEAD ---------- */
+.doctable thead {}
+.doctable thead tr {}
+.doctable thead tr th {
+  background-color: #EEE;
+}
+
+/* ---------- TBODY ---------- */
+.doctable tbody {}
+.doctable tbody tr {}
+.doctable tbody tr th {
+}
+.doctable tbody tr td {
+}
+.doctable tbody tr td p {
+  margin: 5px;
+}
+
+/* ---------- TFOOT ---------- */
+.doctable tfoot {}
+.doctable tfoot tr {}
+.doctable tfoot tr th {}
+
+
+
+/* ========== CLASS DEFINITIONS ============================================= */
+.attribute {
+  font-family: monospace;
+}
+.syntax {
+  font-family: monospace;
+  background-color: #eaeaff;
+  border: 1px solid #999;
+  padding: 10px;
+}
+
+
+
+/* ========== HTML DEFINITIONS ============================================== */
+dl {
+  font-family: sans-serif;
+}
+
+dl dt {
+  margin-top: 10px;
+  font-weight: bold;
+  font-variant: small-caps;
+  color: #393;
+}
+
+dl dd {
+  color: #000;
+  font-size: 85%;  
+}
+
+dl dd ul {
+  list-style-type: circle;
+}
+
+dl dd ul li.done {
+  list-style-type: disc;
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+a:link, a:visited {
+  color: #00f;
+}
